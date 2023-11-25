@@ -1,0 +1,71 @@
+.circle {
+  background-color: white;
+  color: red;
+  font-size: 48px;
+  border-radius: 50%;
+  width: 241px;
+  height: 241px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* .circle::after {
+  content: "";
+  position: relative;
+  color: black;
+  display: inline-block;
+  width: 30px;
+  height: 100px;
+  top: calc(0% - 50px);
+  left: calc(50% + 25px);
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+} */
+
+/* 另一種方法 slide in */
+.target:hover img {
+  transform: translateY(0);
+  opacity: 1;
+  animation: slideIn 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+  .highlight {
+    position: relative;
+    display: inline-block;
+  }
+
+  .highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left:  0%; /* 調整這個值以控制螢光筆超出文字的長度 */
+    width: 110%; /* 調整這個值以控制螢光筆的長度 */
+    height: 100%;
+    background: -webkit-linear-gradient(transparent 60%, #FFED00 60%, #FFED00 100%, transparent 100%);
+    z-index: -1;
+  }
+
+  .animated-div:hover .test-fadeInUp {
+    animation: fadeInUp;
+    animation-duration: 1s;
+  }
+
+  .animated-div:hover .test-fadeInDown {
+    animation: fadeInDown;
+    animation-duration: 1s;
+  }

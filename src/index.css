@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .v-dialog {
+        @apply fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75
+    }
+
+    .bg-primary {
+        @apply bg-blue-500 hover:bg-blue-700 text-white font-bold
+    }
+}

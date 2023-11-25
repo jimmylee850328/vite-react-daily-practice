@@ -1,0 +1,18 @@
+.dog-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dog-body {
+  width: 128px;
+  height: 128px;
+  background-image: url("src/assets/dog/2.png");
+  background-repeat: repeat-x;
+  background-size: 128px 128px;
+  transition: width 4s;
+}
+
+.dog-container:hover .dog-body {
+  width: 512px;
+  transition: width 2s;
+}

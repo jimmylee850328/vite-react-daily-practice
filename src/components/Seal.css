@@ -1,0 +1,22 @@
+.seal-container {
+  position: relative;
+  display: inline-block;
+}
+
+.seal {
+  display: block;
+}
+
+.seal-body {
+  width: 121px;
+  height: 105px;
+  background-image: url("src/assets/seal/2.png");
+  background-repeat: repeat-y;
+  background-size: 121px 105px;
+  transition: height 4s;
+}
+
+.seal-container:hover .seal-body {
+  height: 525px;
+  transition: height 2s;
+}
