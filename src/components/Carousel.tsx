@@ -6,11 +6,11 @@ import Slider from "react-slick";
 
 const Carousel = () => {
     const images = [
-        'src/assets/inner-phone.png', 
+        'src/assets/inner-phone-1.png', 
         'src/assets/inner-phone-2.png', 
-        'src/assets/inner-phone.png', 
-        'src/assets/inner-phone-2.png', 
-        'src/assets/inner-phone.png', 
+        'src/assets/inner-phone-3.png', 
+        'src/assets/inner-phone-4.png', 
+        'src/assets/inner-phone-5.png', 
     ];
 
     const settings = {
@@ -27,7 +27,9 @@ const Carousel = () => {
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyItems: 'center', height: '100%' }}>
             <Slider {...settings}>
-                {images.map((image, i) => <img key={i} src={image} />)}
+                {images.map((image, i) => (
+                    <img key={i} src={image} />
+                ))}
             </Slider>
         </div>
     );

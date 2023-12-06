@@ -1,26 +1,7 @@
-.temp {
-    position: absolute;
-    width: 90%;
-    height: 90%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.active::before {
-    content: '';
-    background-image: url('src/assets/phone.png');
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    scale: 1.05;
-}
-
 .slider {
-    transition: left .5s;
+    transition: all 330ms ease-in-out;
+}
+
+.active {
+    background-color: '#fff';
 }
