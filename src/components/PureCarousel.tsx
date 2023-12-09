@@ -1,12 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import "./PureCarousel.css";
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { display } from '@mui/system';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const PureCarousel = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    // 監聽 window resize 事件
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            if (window.innerWidth < 1024) {
+                setMyWidth(100 / 3);
+                setPosition([4, 0, 1, 2, 3]);
+                setActiveIndex(2);
+            } else {
+                setMyWidth(20);
+                setPosition([0, 1, 2, 3, 4]);
+                setActiveIndex(2);
+            }
+        };
+  
+        window.addEventListener('resize', handleResize);
+  
+        // 卸載時移除事件監聽器
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [windowWidth]); // 空的 dependency array 表示只在 component 第一次渲染時設置事件監聽器
+
+    
     const images = [
         { 'image': 'src/assets/inner-phone-1.png', 'gif': 'src/assets/inner-phone.gif' },
         { 'image': 'src/assets/inner-phone-2.png', 'gif': null },
@@ -15,10 +38,11 @@ const PureCarousel = () => {
         { 'image': 'src/assets/inner-phone-5.png', 'gif': null },
     ];
 
+    const [myWidth, setMyWidth] = useState(20);
     const [activeIndex, setActiveIndex] = useState(2);
     const [position, setPosition] = useState([0, 1, 2, 3, 4]);
-    const get_new_num = (num) => (num + 5) % 5;
-    const get_scale = (index) => {
+    const get_new_num = (num: number) => (num + 5) % 5;
+    const get_scale = (index: number) => {
         if (index === get_new_num(activeIndex - 1) || index === get_new_num(activeIndex + 1)) {
             return 0.85;
         } else if (index === get_new_num(activeIndex - 2) || index === get_new_num(activeIndex + 2)) {
@@ -26,7 +50,7 @@ const PureCarousel = () => {
         }
         return 1;
     };
-    const change_position = (op, num) => {
+    const change_position = (op: string, num: number) => {
         setPosition(prevPosition => {
             if (op == 'diff') {
                 const temp = JSON.parse(JSON.stringify(prevPosition));
@@ -52,9 +76,32 @@ const PureCarousel = () => {
         });
     };
 
+    const getLeftDiff = (index: number) => {
+        if (windowWidth <= 1024) {
+            return position[index] * myWidth;
+        } else {
+            return position[index] * myWidth;
+        }
+    };
+
+    const hideImg = (index: number) => {
+        if (windowWidth <= 1024) {
+            return position[index] * myWidth < 0 || position[index] * myWidth > 67;
+        } else {
+            return false;
+        }
+    };
+
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', height: '100vh', backgroundColor: '#333', position: 'relative' }}>
+            {/* 怎麼讓這個 div 不能 scroll? */}
+            <div style={{ 
+                display: 'flex', 
+                alignItems: 'center',
+                height: '100vh',
+                backgroundColor: '#333',
+                position: 'relative',
+            }}>
                 <ChevronLeftIcon 
                     onClick={() => change_position('diff', -1)}
                     style={{ position: 'absolute', left: 10, cursor: 'pointer', zIndex: 2, color: 'white' }}
@@ -64,13 +111,13 @@ const PureCarousel = () => {
                 <img 
                     src={'src/assets/phone.png'} 
                     style={{ 
-                        width: '20%', 
+                        width: `${myWidth}%`, 
                         height: '90%',
                         objectFit: 'contain',
                         cursor: 'pointer',
                         position: 'absolute',
-                        left: `40%`,
-                        zIndex: 2
+                        left: myWidth === 20 ? '40%' : 'calc(100% / 3)',
+                        zIndex: 2,
                     }}
                 ></img>
 
@@ -81,18 +128,19 @@ const PureCarousel = () => {
                             display: 'flex',
                             alignItems: 'center',
                         }}
+                        className={Math.abs(position[activeIndex] - position[index]) === 2 ? 'control-visibility': ''}
                     >
                         <div 
                             className='slider'
                             style={{ 
-                                left: `${position[index] * 20}%`,
+                                left: `${getLeftDiff(index)}%`,
                                 position: 'absolute', 
-                                width: '20%',
                                 height: '100%',
                                 display: 'flex',
+                                visibility: hideImg(index) ? 'hidden' : 'visible',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                transform: `scale(${get_scale(index)})`
+                                transform: `scale(${get_scale(index)})`,
                             }}
                         >
                             <div style={{
