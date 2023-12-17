@@ -12,12 +12,8 @@ const PureCarousel = () => {
             setWindowWidth(window.innerWidth);
             if (window.innerWidth < 1024) {
                 setMyWidth(100 / 3);
-                setPosition([4, 0, 1, 2, 3]);
-                setActiveIndex(2);
             } else {
                 setMyWidth(20);
-                setPosition([0, 1, 2, 3, 4]);
-                setActiveIndex(2);
             }
         };
   
@@ -78,7 +74,7 @@ const PureCarousel = () => {
 
     const getLeftDiff = (index: number) => {
         if (windowWidth <= 1024) {
-            return position[index] * myWidth;
+            return (position[index] - 1) * myWidth;
         } else {
             return position[index] * myWidth;
         }
@@ -86,7 +82,7 @@ const PureCarousel = () => {
 
     const hideImg = (index: number) => {
         if (windowWidth <= 1024) {
-            return position[index] * myWidth < 0 || position[index] * myWidth > 67;
+            return (position[index] - 1) * myWidth < 0 || (position[index] - 1) * myWidth > 67;
         } else {
             return false;
         }
@@ -101,6 +97,7 @@ const PureCarousel = () => {
                 height: '100vh',
                 backgroundColor: '#333',
                 position: 'relative',
+                overflowX: 'hidden'
             }}>
                 <ChevronLeftIcon 
                     onClick={() => change_position('diff', -1)}
