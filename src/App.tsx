@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 // custom
+import BestCarousel from './components/BestCarousel.tsx';
 import PureCarousel from './components/PureCarousel.tsx';
 import Carousel from './components/Carousel.tsx';
 import AnimatedDiv from './components/AnimatedDiv.tsx';
@@ -15,7 +16,8 @@ import Xiaomi from './components/XiaoMi.tsx';
 const App = () => {
     return (
         <div className="App">
-            <PureCarousel />
+            {/* <PureCarousel /> */}
+            <BestCarousel />
             
             {/* <div>
                 <Seal />
